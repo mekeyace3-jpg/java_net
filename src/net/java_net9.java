@@ -8,11 +8,13 @@ import java.net.InetAddress;
 public class java_net9 {
 
 	public static void main(String[] args) {
-			String ip = "172.30.1.44";
-			int port = 10003;
+			String ip = "172.30.1.54";
+			int port = 10004;	//서버 포트
+			//int myport = 10003;	//자신이 접속하는 UDP 포트
+			int myport = (int)Math.ceil(Math.random()*1000) + 9000;
 			try {
 				InetAddress ia = InetAddress.getByName(ip);	//서버 아이피 정보를 가져옴(UDP 포트)
-				DatagramSocket ds = new DatagramSocket(port);
+				DatagramSocket ds = new DatagramSocket(myport);
 
 				while(true) {
 					byte b[] = new byte[1024];

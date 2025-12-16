@@ -5,16 +5,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 //TCP 연결 => Socket 형태로 접속
-/*
- InputStream => 수신 
- OutputStream => 송신 
- */
 //UDP 연결방식 (Server) => Socket형태가 없음
-/*
- receive() => 수신  
- send() => 송신
- */
-public class java_net8 {
+public class java_net88 {
 	public static void main(String[] args) {
 		String ip = "172.30.1.50";
 		int port = 10003;
@@ -33,7 +25,7 @@ public class java_net8 {
 			
 			InetAddress client_ip = dp.getAddress();	//상대방 접속 IP
 			int client_port = dp.getPort();
-			System.out.println("서버1 :" + client_ip);		//클라이언트 접속 IP
+			System.out.println("서버2 :" + client_ip);		//클라이언트 접속 IP
 			System.out.println(client_port);	//클라이언트 접속 PORT
 			
 		} catch (Exception e) {
