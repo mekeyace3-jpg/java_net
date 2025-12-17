@@ -6,6 +6,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 //UDP - 메세지 송신 (Client) - 키오스크 메뉴 오더 파트 (테이블 손님)
 public class java_net15 {
@@ -28,6 +29,7 @@ public class java_net15 {
 			
 			//Object 형태로 변환
 			ObjectOutputStream oos = new ObjectOutputStream(os);
+			//writeObject, readObject는 ObjectStream에만 해당
 			oos.writeObject(obj);	//ArrayList 배열값을 -> ObjectStream 변환
 			oos.flush();
 			

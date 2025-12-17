@@ -37,6 +37,7 @@ class chat_client{
 				this.isr = new InputStreamReader(System.in);
 				this.br = new BufferedReader(this.isr);
 				this.msg = this.br.readLine();
+				
 				byte by[] = this.msg.getBytes();
 				//서버에게 전송할 내용을 Packet 생성
 				this.dp = new DatagramPacket(by,by.length,this.ia, this.port);

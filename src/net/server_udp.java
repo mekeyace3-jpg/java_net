@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 public class server_udp {
 	public static void main(String[] args) {
@@ -18,7 +19,7 @@ public class server_udp {
 
 class menu_order{
 	private final String ip = "172.30.1.50";
-	private final int port = 8081;
+	private final int port = 8082;
 	private DatagramSocket ds = null;
 	private DatagramPacket dp = null;
 	private InetAddress ia = null;
@@ -30,10 +31,14 @@ class menu_order{
 		this.ia = InetAddress.getByName(this.ip);
 		this.ds = new DatagramSocket(this.port);
 		try {
-			byte server_byte[] = new byte[1024];
+			
+			byte server_byte[] = new byte[4096]; //=>저장 용량
 			this.dp = new DatagramPacket(server_byte, server_byte.length);
 			this.ds.receive(this.dp);
-			this.msg = new String(this.dp.getData());
+			//Client에서 byte에 대한 길이 값이 정하지 않은 상황에서 전송된 byte 길이를 확인하기 위한 사항
+			int word_ea = this.dp.getLength();		
+			
+			this.msg = new String(this.dp.getData(),0,word_ea);
 			System.out.println("주문한 메뉴는" + this.msg +"를 신청하셨습니다.");
 			
 			this.guest = this.dp.getAddress();
