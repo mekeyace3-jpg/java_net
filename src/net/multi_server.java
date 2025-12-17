@@ -68,14 +68,29 @@ class ms extends Thread {
 				
 				while(this.in != null) {
 					String msg = in.readLine();
+					//서버에서 채팅내용 관제
 					System.out.println(name +"님 : "+ msg);
-					sendall(name +"님 : "+ msg);
+					if(msg.equals("종료")) {
+							break;
+					}
+					else {
+						sendall(name +"님 : "+ msg);		//접속한 모든 사용자에게 메시지 발송
+					}
 				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("해당 사용자가 로그인 에러 발생!!");
+			} finally {
+				this.sendall("["+name+"] 퇴장 하셨습니다.");
+				list.remove(out);
+				try {
+					this.socket.close();
+				}catch (Exception e) {
+					System.out.println("정상적으로 종료하지 못하였습니다.");
+				}
 			}
+			System.out.println("["+name+"] 퇴장하였습니다." );
 	}
 	
 	//모든 서버에 접속된 사용자에게 메세지 발송
