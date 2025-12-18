@@ -25,13 +25,38 @@ public class java_net16 {
 }
 //client_recevie => server_send 메소드와 연결
 class client_recevie extends Thread{	//클라이언트 수신
-	private final String ip = "172.30.1.72";
-	private final int port = 10000;		//
+	//private final String ip = "172.30.1.50";	//클라이언트 IP
+	private final int port = 10000;		//서버에서 받는 port		
 	private DatagramSocket ds = null;
 	private DatagramPacket dp = null;
 	private String msg = "";
+	
+	public client_recevie() {
+		try {
+			//서버에서 클라이언트 메세지를 받는 역활을 하는 포트를 오픈
+			 this.ds = new DatagramSocket(this.port);
+		} catch (Exception e) {
+			System.out.println("서버에서 받는 포트가 충돌 발생 하였습니다.");
+		}
+	}
+	
 	@Override
 	public void run() {
+		try {
+			System.out.println("[서버시작]");
+			while(true) {
+				//통신에서 받을 수 있는 크기 지정
+				byte client_byte[] = new byte[1024];
+				this.dp = new DatagramPacket(client_byte, client_byte.length);
+				this.ds.receive(this.dp);	//클라이언트에서 보낸 메세지를 받는 메소드
+				int len = this.dp.getLength();
+				this.msg = new String(this.dp.getData(),0,len);
+				System.out.println("클라이언트 메세지 : " + this.msg);	//서버에서 출력			
+			}
+			
+		} catch (Exception e) {
+			System.out.println("UDP 서버 오픈 오류 발생!!");
+		}
 	}
 }
 

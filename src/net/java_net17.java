@@ -1,5 +1,6 @@
 package net;
 
+import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -54,17 +55,39 @@ class server_receive implements Runnable{
 	}
 }
 class server_send implements Runnable{	//클라이언트가 서버에게 송신
-	private final String ip = "172.30.1.50";
-	private final int myport = 20000;  //
-	private int port = 10000;	//
+	private final String ip = "172.30.1.72";  //서버 IP를 적용
+	private final int myport = 20001;  //클라이언트에서 보내는 전용 포트
+	private int port = 10000;	//서버에서 메세지를 받을 포트
 	
 	private DatagramSocket ds = null;
 	private DatagramPacket dp = null;
 	private String msg = "";
 	private InetAddress ia = null;
 	private InputStreamReader isr = null;
+	private BufferedReader br = null;
+	
+	public server_send() {
+		try {
+			this.ia = InetAddress.getByName(this.ip);	//서버 IP 할당
+			this.ds = new DatagramSocket(this.myport);	//클라이언트에서 보내는 전용 포트
+		} catch (Exception e) {
+			System.out.println("클라인트 발송 포트가 충돌 되었습니다.");
+		}
+	}
 	@Override
 	public void run() {
-				
+			try {
+				while(true) {
+					System.out.println("메세지를 입력하세요 : ");
+					this.isr = new InputStreamReader(System.in);
+					this.br = new BufferedReader(this.isr);
+					this.msg = this.br.readLine();
+					byte by[] = this.msg.getBytes();
+					this.dp = new DatagramPacket(by,by.length,this.ia,this.port);
+					this.ds.send(this.dp);					
+				}
+			} catch (Exception e) {
+				System.out.println("UDP 클라이언트에서 보내는 포트 통신 오류발생!!");
+			}
 	}
 }
