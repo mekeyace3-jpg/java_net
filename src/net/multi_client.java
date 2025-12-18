@@ -13,7 +13,7 @@ public class multi_client {
 		new multi_client().start();
 	}
 	public void start() {
-		String Serverip = "172.30.1.54";
+		String Serverip = "172.30.1.50";
 		int Serverport = 20002;
 		Socket socket = null;
 		
