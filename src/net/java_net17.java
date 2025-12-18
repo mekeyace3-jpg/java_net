@@ -26,7 +26,6 @@ public class java_net17 {
 
 //서버에서 수신된 메세지를 받는 역활
 class server_receive implements Runnable{	
-	private final String ip = "172.30.1.72"; //서버 IP
 	private final int port = 20000;		//자신의 포트 (서버에서 데이터 받는 전용포트)
 	private DatagramSocket ds = null;
 	private DatagramPacket dp = null;

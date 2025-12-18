@@ -25,7 +25,6 @@ public class java_net16 {
 }
 //client_recevie => server_send 메소드와 연결
 class client_recevie extends Thread{	//클라이언트 수신
-	//private final String ip = "172.30.1.50";	//클라이언트 IP
 	private final int port = 10000;		//서버에서 받는 port		
 	private DatagramSocket ds = null;
 	private DatagramPacket dp = null;
